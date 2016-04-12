@@ -29,20 +29,30 @@ def make_chains(text_string):
         {('hi', 'there'): ['mary', 'juanita'], ('there', 'mary'): ['hi'], ('mary', 'hi': ['there']}
     """
 
-    # chains = {}
+    chains = {}
 
     words = text_string.split()
 
-    word_pairs = []
-
+   
     for index in range(len(words)):
-        # while index < len(words)-1:
-        if index == len(words) - 1:
+        
+        if index == len(words) - 2:
             break
         else:
-            word_pairs.append((words[index], words[index + 1]))
+            if (words[index], words[index + 1]) not in chains.keys():
+                chains[(words[index], words[index + 1])] = [(words[index + 2])]
+            else:
+                existing_values = chains[(words[index], words[index + 1])]
+                existing_values.append(words[index +2])
+                chains[(words[index], words[index + 1])] = existing_values
+
+                # doesnt work and we dont know why:
+                # chains[(words[index], words[index + 1])] = chains[(words[index], 
+                #     words[index + 1])].append(words[index + 2])
+            
+            #old idea: word_pairs.append((words[index], words[index + 1]))
     
-    print word_pairs
+    return chains
 
 
     # return chains
