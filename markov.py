@@ -67,7 +67,7 @@ def make_text(chains):
     split_text =text.split()
 
     #start while loop
-    while chains.get(split_text[-2],split_text[-1], None):
+    while chains.get((split_text[-2],split_text[-1]), None):
         
         text = text + ' ' + choice(chains[(split_text[-2],split_text[-1])])
         split_text =text.split()
