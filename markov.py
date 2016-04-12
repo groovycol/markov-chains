@@ -43,7 +43,7 @@ def make_chains(text_string):
                 chains[(words[index], words[index + 1])] = [(words[index + 2])]
             else:
                 existing_values = chains[(words[index], words[index + 1])]
-                existing_values.append(words[index +2])
+                existing_values.append(words[index + 2])
                 chains[(words[index], words[index + 1])] = existing_values
 
                 # doesnt work and we dont know why:
@@ -55,15 +55,23 @@ def make_chains(text_string):
     return chains
 
 
-    # return chains
-
 
 def make_text(chains):
     """Takes dictionary of markov chains; returns random text."""
 
     text = ""
 
-    # your code goes here
+    starting_key = choice(chains.keys())
+    text = starting_key[0] + ' ' + starting_key[1]
+    #split here first
+    split_text =text.split()
+
+    #start while loop
+    while chains.get(split_text[-2],split_text[-1], None):
+        
+        text = text + ' ' + choice(chains[(split_text[-2],split_text[-1])])
+        split_text =text.split()
+       
 
     return text
 
