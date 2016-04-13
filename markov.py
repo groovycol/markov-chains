@@ -45,11 +45,20 @@ def make_chains(text_string, num):
     return chains
 
 
+def find_starting_key(chains):
+    """Returns a tuple key starting with a capital letter"""
 
-def make_text(chains, num):
+    all_keys = chains.keys()
+
+    upper_keys = [key for key in all_keys if key[0][0].isupper()]
+    
+    return choice(upper_keys)
+
+
+def make_text(chains, num, starting_key):
     """Takes dictionary of markov chains; returns random text."""
 
-    starting_key = choice(chains.keys())
+    #starting_key = choice(chains.keys())
 
     text = ' '.join(starting_key)
     #split here first
@@ -65,20 +74,22 @@ def make_text(chains, num):
     return text
 
 
-# input_path = "green-eggs.txt"
-# input_path = "gettysburg.txt"
-input_path = sys.argv[1]
-key_length = sys.argv[2]
+#input_path = "green-eggs.txt"
+input_path = "gettysburg.txt"
+# input_path = sys.argv[1]
+# key_length = sys.argv[2]
+key_length = 2
 
 # Open the file and turn it into one long string
 input_text = open_and_read_file(input_path)
 
 # Get a Markov chain
-chains = make_chains(input_text,3)
+chains = make_chains(input_text,key_length)
 # print chains
 
-# Produce random text
-random_text = make_text(chains, 3)
+starting_key = find_starting_key(chains)
+# # Produce random text
+random_text = make_text(chains, key_length, starting_key)
 
 print random_text
 
